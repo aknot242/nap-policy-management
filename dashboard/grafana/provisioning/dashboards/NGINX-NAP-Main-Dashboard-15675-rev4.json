@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_WAF-LOGS",
-      "label": "WAF-Logs",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "elasticsearch",
-      "pluginName": "Elasticsearch"
-    }
-  ],
   "__elements": [],
   "__requires": [
     {
@@ -118,7 +108,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -181,7 +171,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -200,7 +190,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -280,7 +270,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -298,7 +288,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "fieldConfig": {
         "defaults": {
@@ -413,7 +403,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -432,7 +422,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -498,7 +488,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -518,7 +508,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "fieldConfig": {
         "defaults": {
@@ -619,7 +609,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -643,7 +633,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -765,7 +755,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -810,7 +800,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -879,7 +869,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -924,7 +914,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -993,7 +983,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -1051,7 +1041,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -1197,7 +1187,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -1258,7 +1248,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -1359,7 +1349,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -1379,7 +1369,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -1510,7 +1500,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -1564,7 +1554,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -1740,7 +1730,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -1806,7 +1796,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -1976,7 +1966,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -2033,7 +2023,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -2175,7 +2165,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -2238,7 +2228,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -2368,7 +2358,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -2426,7 +2416,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -2603,7 +2593,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -2649,7 +2639,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -2755,7 +2745,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -2814,7 +2804,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -2942,7 +2932,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -3013,7 +3003,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "description": "",
       "fieldConfig": {
@@ -3145,7 +3135,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -3230,7 +3220,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_WAF-LOGS}"
+        "uid": "waf_logs"
       },
       "fieldConfig": {
         "defaults": {
@@ -3374,7 +3364,7 @@
           "bucketAggs": [],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_WAF-LOGS}"
+            "uid": "waf_logs"
           },
           "metrics": [
             {
@@ -3512,7 +3502,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"request_status.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -3532,7 +3522,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"ip_client\", \"size\": 1000}",
         "hide": 0,
@@ -3551,7 +3541,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"outcome.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -3570,7 +3560,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"client_class.keyword\", \"size\": 100}",
         "hide": 0,
@@ -3589,7 +3579,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"severity_label.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -3608,7 +3598,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"logsource.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -3627,7 +3617,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_WAF-LOGS}"
+          "uid": "waf_logs"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"policy_name.keyword\", \"size\": 100}",
         "hide": 0,

@@ -5,6 +5,7 @@ datasources:
     access: proxy
     url: http://elasticsearch:9200
     database: waf-logs*
+    uid: waf_logs
     jsonData:
       esVersion: 7.10.0
       timeField: "@timestamp"
@@ -17,6 +18,7 @@ datasources:
     access: proxy
     url: http://elasticsearch:9200
     database: waf-decoded-logs*
+    uid: waf_decoded
     jsonData:
       esVersion: 7.10.0
       timeField: "@timestamp"

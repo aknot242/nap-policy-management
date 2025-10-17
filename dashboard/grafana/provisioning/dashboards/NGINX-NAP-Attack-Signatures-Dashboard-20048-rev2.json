@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_NAP-DECODED",
-      "label": "NAP-Decoded",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "elasticsearch",
-      "pluginName": "Elasticsearch"
-    }
-  ],
   "__elements": {},
   "__requires": [
     {
