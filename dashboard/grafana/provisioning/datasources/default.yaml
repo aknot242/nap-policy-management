@@ -7,7 +7,7 @@ datasources:
     database: waf-logs*
     jsonData:
       esVersion: 7.10.0
-      timeField: '@timestamp'
+      timeField: "@timestamp"
       maxConcurrentShardRequests: 5
       includeFrozen: false
     isDefault: true
@@ -19,7 +19,7 @@ datasources:
     database: waf-decoded-logs*
     jsonData:
       esVersion: 7.10.0
-      timeField: '@timestamp'
+      timeField: "@timestamp"
       maxConcurrentShardRequests: 5
       includeFrozen: false
     isDefault: false
