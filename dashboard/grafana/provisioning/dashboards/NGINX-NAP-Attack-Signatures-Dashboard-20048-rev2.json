@@ -107,7 +107,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -179,7 +179,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -232,7 +232,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -304,7 +304,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -357,7 +357,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -429,7 +429,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -482,7 +482,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -568,7 +568,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -614,7 +614,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -738,7 +738,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -793,7 +793,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -864,7 +864,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -909,7 +909,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -980,7 +980,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -1025,7 +1025,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -1097,7 +1097,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -1189,7 +1189,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -1252,7 +1252,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1271,7 +1271,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -1337,7 +1337,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1358,7 +1358,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "fieldConfig": {
         "defaults": {
@@ -1466,7 +1466,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1485,7 +1485,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -1551,7 +1551,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1572,7 +1572,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -1662,7 +1662,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1733,7 +1733,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -1857,7 +1857,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -1930,7 +1930,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -2042,7 +2042,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -2100,7 +2100,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -2212,7 +2212,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -2269,7 +2269,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -2368,7 +2368,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -2429,7 +2429,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_NAP-DECODED}"
+        "uid": "waf_decoded"
       },
       "description": "",
       "fieldConfig": {
@@ -2700,7 +2700,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "metrics": [
             {
@@ -2786,7 +2786,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -2983,7 +2983,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -3052,7 +3052,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -3161,7 +3161,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -3228,7 +3228,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -3527,7 +3527,7 @@
               "bucketAggs": [],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -3686,7 +3686,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -3797,7 +3797,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -3864,7 +3864,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -4199,7 +4199,7 @@
               "bucketAggs": [],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -4348,7 +4348,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -4486,7 +4486,7 @@
               ],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -4557,7 +4557,7 @@
         {
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_NAP-DECODED}"
+            "uid": "waf_decoded"
           },
           "description": "",
           "fieldConfig": {
@@ -4892,7 +4892,7 @@
               "bucketAggs": [],
               "datasource": {
                 "type": "elasticsearch",
-                "uid": "${DS_NAP-DECODED}"
+                "uid": "waf_decoded"
               },
               "metrics": [
                 {
@@ -5033,7 +5033,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"violations.context.keyword\", \"size\": 10}",
         "hide": 0,
@@ -5053,7 +5053,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"virtualServerName.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -5073,7 +5073,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"requestPolicy.fullPath.keyword\", \"size\": 500}",
         "hide": 0,
@@ -5093,7 +5093,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"host.keyword\", \"size\": 1000}",
         "hide": 0,
@@ -5113,7 +5113,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"violations.signature.accuracy.keyword\", \"size\": 5}",
         "hide": 0,
@@ -5133,7 +5133,7 @@
         "current": {},
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_NAP-DECODED}"
+          "uid": "waf_decoded"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"violations.signature.risk.keyword\", \"size\": 5}",
         "hide": 0,
