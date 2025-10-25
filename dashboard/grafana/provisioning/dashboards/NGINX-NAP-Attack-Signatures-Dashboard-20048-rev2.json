@@ -71,7 +71,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 20048,
   "graphTooltip": 0,
-  "id": null,
+  "id": 4,
   "links": [
     {
       "asDropdown": true,
@@ -166,7 +166,7 @@
               "alias": "",
               "bucketAggs": [
                 {
-                  "field": "requestStatus.keyword",
+                  "field": "request_status.keyword",
                   "id": "2",
                   "settings": {
                     "min_doc_count": "1",
@@ -187,7 +187,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -197,7 +197,10 @@
             {
               "id": "organize",
               "options": {
-                "excludeByName": {},
+                "excludeByName": {
+                  "Count": false,
+                  "request_status.keyword": false
+                },
                 "indexByName": {
                   "Count 1": 1,
                   "Count 2": 2,
@@ -291,7 +294,7 @@
               "alias": "",
               "bucketAggs": [
                 {
-                  "field": "violations.signature.risk.keyword",
+                  "field": "signature-details.risk.keyword",
                   "id": "2",
                   "settings": {
                     "min_doc_count": "1",
@@ -312,7 +315,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -416,7 +419,7 @@
               "alias": "",
               "bucketAggs": [
                 {
-                  "field": "violations.signature.accuracy.keyword",
+                  "field": "signature-details.accuracy.keyword",
                   "id": "2",
                   "settings": {
                     "min_doc_count": "1",
@@ -437,7 +440,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -492,9 +495,7 @@
               },
               "custom": {
                 "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
+                "displayMode": "auto",
                 "filterable": false,
                 "inspect": false
               },
@@ -503,7 +504,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -549,13 +551,13 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "9.5.3",
+          "pluginVersion": "9.2.1",
           "targets": [
             {
               "alias": "",
               "bucketAggs": [
                 {
-                  "field": "violations.signature.references.value.keyword",
+                  "field": "signature-details.cve.keyword",
                   "id": "2",
                   "settings": {
                     "min_doc_count": "1",
@@ -576,7 +578,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -603,8 +605,8 @@
                   "ip_client": "IP address",
                   "policy_name.keyword": "Policy Name",
                   "sig_cves.keyword": "CVEs",
-                  "uri.keyword": "URLs",
-                  "violations.signature.references.value.keyword": "CVE Number"
+                  "signature-details.cve.keyword": "CVE Number",
+                  "uri.keyword": "URLs"
                 }
               }
             }
@@ -624,9 +626,7 @@
               },
               "custom": {
                 "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
+                "displayMode": "auto",
                 "filterable": false,
                 "inspect": false
               },
@@ -635,7 +635,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -687,12 +688,6 @@
                         "type": "value"
                       }
                     ]
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-background"
-                    }
                   }
                 ]
               }
@@ -719,13 +714,13 @@
             "showHeader": false,
             "sortBy": []
           },
-          "pluginVersion": "9.5.3",
+          "pluginVersion": "9.2.1",
           "targets": [
             {
               "alias": "",
               "bucketAggs": [
                 {
-                  "field": "violations.enforcementState.isBlocked",
+                  "field": "request_status.keyword",
                   "id": "2",
                   "settings": {
                     "min_doc_count": "1",
@@ -746,7 +741,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -759,8 +754,8 @@
                 "excludeByName": {},
                 "indexByName": {
                   "Count": 1,
-                  "Unique Count clientIp": 2,
-                  "Unique Count url.keyword": 3,
+                  "Unique Count ip_client": 2,
+                  "Unique Count uri.keyword": 3,
                   "violations.enforcementState.isBlocked": 0
                 },
                 "renameByName": {
@@ -768,20 +763,17 @@
                   "Count 1": "Hits",
                   "Count 2": "Blocked",
                   "Unique Count": "IPs",
-                  "Unique Count clientIp": "IPs",
-                  "Unique Count clientIp.keyword": "IPs",
                   "Unique Count ip_client": "IPs",
+                  "Unique Count ip_client.keyword": "IPs",
                   "Unique Count policy_name.keyword": "Policies",
                   "Unique Count source_host": "IPs",
                   "Unique Count uri.keyword": "URLs",
-                  "Unique Count url.keyword": "URLs",
                   "details.violation.viol_name.keyword": "Violations",
-                  "host.keyword": "Device",
                   "ip_client": "IP address",
                   "logsource.keyword": "Device",
-                  "policy_name.keyword": "Policy",
-                  "requestPolicy.fullPath.keyword": "Policy Name",
+                  "policy_name.keyword": "Policy Name",
                   "sig_names.keyword": "Signatures",
+                  "unit_hostname.keyword": "Device",
                   "violations.enforcementState.isBlocked": "isBlocked",
                   "violations.keyword": "Violations"
                 }
@@ -872,7 +864,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -988,7 +980,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -1105,7 +1097,7 @@
                   "type": "count"
                 }
               ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+              "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -1236,7 +1228,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
@@ -1260,7 +1252,7 @@
               "type": "count"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1318,13 +1310,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "clientIp",
+              "field": "ip_client",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -1341,13 +1333,13 @@
           },
           "metrics": [
             {
-              "field": "clientIp",
+              "field": "ip_client",
               "id": "1",
               "settings": {},
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1442,7 +1434,7 @@
           "alias": "",
           "bucketAggs": [
             {
-              "field": "violations.signature.name.keyword",
+              "field": "signature-details.name.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -1474,7 +1466,7 @@
               "type": "count"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1532,13 +1524,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -1555,13 +1547,13 @@
           },
           "metrics": [
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "1",
               "settings": {},
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1596,9 +1588,6 @@
             "lineWidth": 1,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
             }
           },
           "mappings": [],
@@ -1649,7 +1638,7 @@
           "alias": "",
           "bucketAggs": [
             {
-              "field": "violations.context.keyword",
+              "field": "details.context.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -1670,12 +1659,12 @@
               "type": "count"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "3",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1743,9 +1732,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "filterable": true,
             "inspect": false
           },
@@ -1838,13 +1825,13 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "clientIp",
+              "field": "ip_client",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -1865,22 +1852,22 @@
               "type": "count"
             },
             {
-              "field": "url-decode.keyword",
+              "field": "uri.keyword",
               "id": "3",
               "type": "cardinality"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "4",
               "type": "cardinality"
             },
             {
-              "field": "requestPolicy.fullPath.keyword",
+              "field": "policy_name.keyword",
               "id": "5",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1903,14 +1890,10 @@
               "Unique Count": "IPs",
               "Unique Count ip_client": "IPs",
               "Unique Count policy_name.keyword": "Policies",
-              "Unique Count requestPolicy.fullPath.keyword": "Policies",
               "Unique Count sig_id.keyword": "Signatures",
+              "Unique Count signature-details.sig_id": "Sigs",
               "Unique Count source_host": "IPs",
               "Unique Count uri.keyword": "URLs",
-              "Unique Count url-decode.keyword": "URLs",
-              "Unique Count url.keyword": "URLs",
-              "Unique Count violations.signature.signatureId": "Sigs",
-              "clientIp": "IP",
               "details.parameter_data.name.keyword": "Parameter Name",
               "details.parameter_data.value.keyword": "Most Common Value",
               "details.violation.viol_name.keyword": "Violations",
@@ -1940,9 +1923,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "filterable": false,
             "inspect": false
           },
@@ -2023,13 +2004,13 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "virtualServerName.keyword",
+              "field": "vs_name.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -2050,17 +2031,17 @@
               "type": "count"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "3",
               "type": "cardinality"
             },
             {
-              "field": "clientIp.keyword",
+              "field": "ip_client.keyword",
               "id": "4",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -2081,16 +2062,15 @@
               "Count 1": "Hits",
               "Count 2": "Blocked",
               "Unique Count": "SignatureIDs",
-              "Unique Count clientIp.keyword": "IPs",
               "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
+              "Unique Count signature-details.sig_id": "Sig IDs",
               "Unique Count violations.keyword": "Violations",
-              "Unique Count violations.signature.signatureId": "Sig IDs",
               "details.violation.viol_name.keyword": "Violations",
               "ip_client": "IP address",
               "policy_name.keyword": "Policy Name",
-              "requestPolicy.fullPath.keyword": "Policy Name",
               "uri.keyword": "URLs",
-              "virtualServerName.keyword": "vsName"
+              "vs_name.keyword": "vsName"
             }
           }
         }
@@ -2110,9 +2090,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "filterable": false,
             "inspect": false
           },
@@ -2193,13 +2171,13 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "requestPolicy.fullPath.keyword",
+              "field": "policy_name.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -2220,17 +2198,17 @@
               "type": "count"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "3",
               "type": "cardinality"
             },
             {
-              "field": "clientIp.keyword",
+              "field": "ip_client.keyword",
               "id": "4",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -2251,14 +2229,13 @@
               "Count 1": "Hits",
               "Count 2": "Blocked",
               "Unique Count": "SignatureIDs",
-              "Unique Count clientIp.keyword": "IPs",
               "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
+              "Unique Count signature-details.sig_id": "Sig IDs",
               "Unique Count violations.keyword": "Violations",
-              "Unique Count violations.signature.signatureId": "Sig IDs",
               "details.violation.viol_name.keyword": "Violations",
               "ip_client": "IP address",
               "policy_name.keyword": "Policy Name",
-              "requestPolicy.fullPath.keyword": "Name",
               "uri.keyword": "URLs"
             }
           }
@@ -2279,9 +2256,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "filterable": true,
             "inspect": false
           },
@@ -2290,7 +2265,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "green",
@@ -2349,13 +2325,13 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "url-decode.keyword",
+              "field": "uri.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -2376,12 +2352,12 @@
               "type": "count"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "4",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -2402,14 +2378,13 @@
               "Count 1": "Hits",
               "Count 2": "Blocked",
               "Unique Count": "Sig IDs",
-              "Unique Count clientIp.keyword": "IPs",
               "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
               "Unique Count policy_name.keyword": "Policies",
-              "Unique Count requestPolicy.fullPath.keyword": "Policies",
               "Unique Count sig_id.keyword": "Signatures",
+              "Unique Count signature-details.sig_id": "Signatures",
               "Unique Count source_host": "IPs",
               "Unique Count uri.keyword": "URLs",
-              "Unique Count violations.signature.signatureId": "Signatures",
               "details.parameter_data.name.keyword": "Parameter Name",
               "details.parameter_data.value.keyword": "Most Common Value",
               "details.violation.viol_name.keyword": "Violations",
@@ -2418,7 +2393,6 @@
               "signature-details.name.keyword": "Signature Name",
               "signature-details.sig_id": "Signature ID",
               "uri.keyword": "URL",
-              "url-decode.keyword": "URLs",
               "violations.keyword": "Violations"
             }
           }
@@ -2439,9 +2413,7 @@
           },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
+            "displayMode": "auto",
             "filterable": false,
             "inspect": false
           },
@@ -2450,7 +2422,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2504,18 +2477,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Policies"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 82
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "Signature ID"
             },
             "properties": [
@@ -2525,13 +2486,6 @@
               },
               {
                 "id": "unit"
-              },
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "mode": "basic",
-                  "type": "color-background"
-                }
               }
             ]
           },
@@ -2555,14 +2509,14 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 57
+                "value": 80
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "isBlocked"
+              "options": "request_status.keyword"
             },
             "properties": [
               {
@@ -2570,14 +2524,18 @@
                 "value": [
                   {
                     "options": {
-                      "0": {
+                      "alerted": {
                         "index": 1,
                         "text": "False"
                       },
-                      "1": {
+                      "blocked": {
                         "color": "red",
                         "index": 0,
                         "text": "True"
+                      },
+                      "passed": {
+                        "index": 2,
+                        "text": "False"
                       }
                     },
                     "type": "value"
@@ -2585,14 +2543,12 @@
                 ]
               },
               {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
                 "id": "custom.width",
                 "value": 100
+              },
+              {
+                "id": "displayName",
+                "value": "Blocked"
               }
             ]
           }
@@ -2625,13 +2581,13 @@
           }
         ]
       },
-      "pluginVersion": "9.5.3",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "field": "violations.signature.name.keyword",
+              "field": "signature-details.name.keyword",
               "id": "2",
               "settings": {
                 "min_doc_count": "1",
@@ -2642,7 +2598,7 @@
               "type": "terms"
             },
             {
-              "field": "violations.signature.signatureId",
+              "field": "signature-details.sig_id",
               "id": "6",
               "settings": {
                 "min_doc_count": "1",
@@ -2653,7 +2609,7 @@
               "type": "terms"
             },
             {
-              "field": "violations.signature.accuracy.keyword",
+              "field": "signature-details.accuracy.keyword",
               "id": "7",
               "settings": {
                 "min_doc_count": "1",
@@ -2664,7 +2620,7 @@
               "type": "terms"
             },
             {
-              "field": "violations.signature.risk.keyword",
+              "field": "signature-details.risk.keyword",
               "id": "8",
               "settings": {
                 "min_doc_count": "1",
@@ -2675,7 +2631,7 @@
               "type": "terms"
             },
             {
-              "field": "violations.signature.references.value.keyword",
+              "field": "signature-details.cve.keyword",
               "id": "9",
               "settings": {
                 "min_doc_count": "1",
@@ -2687,7 +2643,7 @@
               "type": "terms"
             },
             {
-              "field": "violations.enforcementState.isBlocked",
+              "field": "request_status.keyword",
               "id": "10",
               "settings": {
                 "min_doc_count": "1",
@@ -2708,12 +2664,12 @@
               "type": "count"
             },
             {
-              "field": "clientIp",
+              "field": "ip_client",
               "id": "3",
               "type": "cardinality"
             }
           ],
-          "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -2727,42 +2683,35 @@
             "indexByName": {
               "Count": 2,
               "Unique Count": 3,
-              "violations.enforcementState.isBlocked": 7,
-              "violations.signature.accuracy.keyword": 4,
-              "violations.signature.name.keyword": 0,
-              "violations.signature.references.value.keyword": 6,
-              "violations.signature.risk.keyword": 5,
-              "violations.signature.signatureId": 1
+              "signature-details.accuracy.keyword": 4,
+              "signature-details.cve.keyword": 6,
+              "signature-details.name.keyword": 0,
+              "signature-details.risk.keyword": 5,
+              "signature-details.sig_id": 1,
+              "violations.enforcementState.isBlocked": 7
             },
             "renameByName": {
               "Count": "Hits",
               "Count 1": "Hits",
               "Count 2": "Blocked",
               "Unique Count": "IPs",
-              "Unique Count clientIp": "IPs",
-              "Unique Count clientIp.keyword": "IPs",
               "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
               "Unique Count policy_name.keyword": "Policies",
-              "Unique Count requestPolicy.fullPath.keyword": "Policies",
               "Unique Count source_host": "IPs",
               "Unique Count uri.keyword": "URLs",
-              "Unique Count url.keyword": "URLs",
               "details.parameter_data.name.keyword": "Parameter Name",
               "details.parameter_data.value.keyword": "Most Common Value",
               "details.violation.viol_name.keyword": "Violations",
               "ip_client": "IP address",
               "sig_names.keyword": "Signatures",
               "signature-details.accuracy.keyword": "Accuracy",
-              "signature-details.name.keyword": "Signature Name",
+              "signature-details.cve.keyword": "CVEs",
+              "signature-details.name.keyword": "Name",
               "signature-details.risk.keyword": "Risk",
               "signature-details.sig_id": "Signature ID",
               "violations.enforcementState.isBlocked": "isBlocked",
-              "violations.keyword": "Violations",
-              "violations.signature.accuracy.keyword": "Accuracy",
-              "violations.signature.name.keyword": "Name",
-              "violations.signature.references.value.keyword": "CVEs",
-              "violations.signature.risk.keyword": "Risk",
-              "violations.signature.signatureId": "Signature ID"
+              "violations.keyword": "Violations"
             }
           }
         }
@@ -2770,7 +2719,7 @@
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": {
         "type": "elasticsearch",
         "uid": "d37e6695-eddf-4c26-aa7c-be5ac5c0358e"
@@ -2782,881 +2731,7 @@
         "y": 44
       },
       "id": 15,
-      "panels": [
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": false,
-                "inspect": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Hits"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 87
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "IPs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 69
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Sig IDs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 71
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Most Common value"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "orange"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 326
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Context"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 124
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 17,
-            "x": 0,
-            "y": 55
-          },
-          "id": 6,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "violations.observedEntity.name-decode.keyword",
-                  "id": "2",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "100"
-                  },
-                  "type": "terms"
-                },
-                {
-                  "field": "violations.observedEntity.value-decode.keyword",
-                  "id": "6",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "1"
-                  },
-                  "type": "terms"
-                },
-                {
-                  "field": "violations.context.keyword",
-                  "id": "7",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                },
-                {
-                  "field": "clientIp",
-                  "id": "3",
-                  "type": "cardinality"
-                },
-                {
-                  "field": "violations.signature.signatureId",
-                  "id": "4",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && (violations.context.keyword:parameters || violations.context.keyword:headers || violations.context.keyword:cookies) && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Entity Names",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "Count": 3,
-                  "Unique Count clientIp.keyword": 4,
-                  "Unique Count url.keyword": 5,
-                  "violations.context.keyword": 0,
-                  "violations.observedEntity.name-decode.keyword": 1,
-                  "violations.observedEntity.value-decode.keyword": 2
-                },
-                "renameByName": {
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count clientIp": "IPs",
-                  "Unique Count clientIp.keyword": "IPs",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "Unique Count url.keyword": "URLs",
-                  "Unique Count violations.observedEntity.value.keyword": "# values",
-                  "Unique Count violations.signature.signatureId": "Sig IDs",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Most Common Value",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "ip_client": "IP address",
-                  "sig_names.keyword": "Signatures",
-                  "violations.context.keyword": "Context",
-                  "violations.keyword": "Violations",
-                  "violations.observedEntity.name-decode.keyword": "Name",
-                  "violations.observedEntity.value-decode.keyword": "Most Common value"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "orange"
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Hits"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 87
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "red"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 7,
-            "x": 17,
-            "y": 55
-          },
-          "id": 27,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "violations.observedEntity.value-decode.keyword",
-                  "id": "6",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "1000"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                },
-                {
-                  "field": "requestPolicy.fullPath.keyword",
-                  "id": "5",
-                  "type": "cardinality"
-                },
-                {
-                  "field": "violations.observedEntity.name.keyword",
-                  "id": "7",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && (violations.context.keyword:parameters || violations.context.keyword:headers || violations.context.keyword:cookies) && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Entity Values",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Unique Count requestPolicy.fullPath.keyword": true,
-                  "Unique Count violations.observedEntity.name.keyword": true
-                },
-                "indexByName": {
-                  "Count": 1,
-                  "Unique Count requestPolicy.fullPath.keyword": 2,
-                  "Unique Count violations.observedEntity.name.keyword": 3,
-                  "violations.observedEntity.value-decode.keyword": 0
-                },
-                "renameByName": {
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count details.parameter_data.name.keyword": "Parameters",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count requestPolicy.fullPath.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "Unique Count violations.observedEntity.name.keyword": "Entities",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Parameter Value",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "ip_client": "IP address",
-                  "sig_names.keyword": "Signatures",
-                  "violations.keyword": "Violations",
-                  "violations.observedEntity.value-decode.keyword": "Value",
-                  "violations.observedEntity.value.keyword": "Value"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": false,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Location"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 158
-                  },
-                  {
-                    "id": "noValue",
-                    "value": "-"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SignatureID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 122
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Context"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 120
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "super-light-red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 289
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "orange"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 231
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 77
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Length"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 70
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Violation Buffer"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 300
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SupportID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 208
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "links",
-                    "value": [
-                      {
-                        "targetBlank": true,
-                        "title": "Details",
-                        "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Status"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 100
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Method"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 92
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 14,
-            "w": 24,
-            "x": 0,
-            "y": 67
-          },
-          "id": 64,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "settings": {
-                    "limit": "1000"
-                  },
-                  "type": "logs"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && (violations.context.keyword:parameters || violations.context.keyword:headers || violations.context.keyword:cookies) && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Parameter / Header / Cookie violation details",
-          "transformations": [
-            {
-              "id": "filterFieldsByName",
-              "options": {
-                "include": {
-                  "names": [
-                    "country_name",
-                    "host",
-                    "id",
-                    "method",
-                    "requestPolicy.fullPath",
-                    "requestStatus",
-                    "violations.context",
-                    "violations.enforcementState.isBlocked",
-                    "violations.enforcementState.isLikelyFalsePositive",
-                    "violations.observedEntity.location",
-                    "violations.observedEntity.name-decode",
-                    "violations.observedEntity.value-decode",
-                    "violations.policyEntity.headers",
-                    "violations.policyEntity.parameters",
-                    "violations.signature.name",
-                    "violations.signature.signatureId",
-                    "violations.snippet.buffer-decode",
-                    "violations.snippet.length",
-                    "violations.snippet.offset",
-                    "virtualServerName",
-                    "@timestamp"
-                  ]
-                }
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Count": true,
-                  "country": false
-                },
-                "indexByName": {
-                  "@timestamp": 0,
-                  "country_name": 17,
-                  "host": 16,
-                  "id": 4,
-                  "method": 15,
-                  "requestPolicy.fullPath": 13,
-                  "requestStatus": 10,
-                  "violations.context": 8,
-                  "violations.enforcementState.isBlocked": 12,
-                  "violations.enforcementState.isLikelyFalsePositive": 11,
-                  "violations.observedEntity.location": 9,
-                  "violations.observedEntity.name-decode": 1,
-                  "violations.observedEntity.value-decode": 2,
-                  "violations.policyEntity.headers": 19,
-                  "violations.policyEntity.parameters": 20,
-                  "violations.signature.name": 18,
-                  "violations.signature.signatureId": 3,
-                  "violations.snippet.buffer-decode": 5,
-                  "violations.snippet.length": 7,
-                  "violations.snippet.offset": 6,
-                  "virtualServerName": 14
-                },
-                "renameByName": {
-                  "@timestamp": "Timestamp",
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "country_name": "Country",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Value",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "host": "Device",
-                  "id": "SupportID",
-                  "id.keyword": "Support ID",
-                  "ip_client": "IP address",
-                  "method": "Method",
-                  "requestPolicy.fullPath": "Policy",
-                  "requestStatus": "Status",
-                  "sig_names.keyword": "Signatures",
-                  "url-decode": "URL",
-                  "violations.context": "Context",
-                  "violations.context.keyword": "Context",
-                  "violations.enforcementState.isAlarmed": "isAlarmed",
-                  "violations.enforcementState.isBlocked": "isBlocked",
-                  "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
-                  "violations.keyword": "Violations",
-                  "violations.observedEntity.location": "Location",
-                  "violations.observedEntity.location.keyword": "Location",
-                  "violations.observedEntity.name-decode": "Name",
-                  "violations.observedEntity.name-decode.keyword": "Name",
-                  "violations.observedEntity.value-decode": "Value",
-                  "violations.observedEntity.value-decode.keyword": "Value",
-                  "violations.observedEntity.value.keyword": "",
-                  "violations.policyEntity.headers": "",
-                  "violations.signature.name": "Signature Name",
-                  "violations.signature.name.keyword": "Signature Name",
-                  "violations.signature.signatureId": "SignatureID",
-                  "violations.snippet.buffer-decode": "Violation Buffer",
-                  "violations.snippet.buffer-decode.keyword": "Violation Buffer",
-                  "violations.snippet.length": "Length",
-                  "violations.snippet.offset": "Offset",
-                  "virtualServerName": "Virtual Server"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "targets": [
         {
           "datasource": {
@@ -3670,7 +2745,834 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hits"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 87
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IPs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 69
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sig IDs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 71
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Most Common value"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "orange",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 326
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Context"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 124
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 17,
+        "x": 0,
+        "y": 45
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "violations.observedEntity.name-decode.keyword",
+              "id": "2",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "100"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "violations.observedEntity.value-decode.keyword",
+              "id": "6",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "1"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "details.context.keyword",
+              "id": "7",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            },
+            {
+              "field": "ip_client",
+              "id": "3",
+              "type": "cardinality"
+            },
+            {
+              "field": "signature-details.sig_id",
+              "id": "4",
+              "type": "cardinality"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && (details.context.keyword:parameter || details.context.keyword:header || details.context.keyword:cookie) && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Entity Names",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 3,
+              "Unique Count ip_client.keyword": 4,
+              "Unique Count uri.keyword": 5,
+              "details.context.keyword": 0,
+              "violations.observedEntity.name-decode.keyword": 1,
+              "violations.observedEntity.value-decode.keyword": 2
+            },
+            "renameByName": {
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count signature-details.sig_id": "Sig IDs",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "Unique Count violations.observedEntity.value.keyword": "# values",
+              "details.context.keyword": "Context",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Most Common Value",
+              "details.violation.viol_name.keyword": "Violations",
+              "ip_client": "IP address",
+              "sig_names.keyword": "Signatures",
+              "violations.keyword": "Violations",
+              "violations.observedEntity.name-decode.keyword": "Name",
+              "violations.observedEntity.value-decode.keyword": "Most Common value"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hits"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 87
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 7,
+        "x": 17,
+        "y": 45
+      },
+      "id": 27,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "violations.observedEntity.value-decode.keyword",
+              "id": "6",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "1000"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            },
+            {
+              "field": "policy_name.keyword",
+              "id": "5",
+              "type": "cardinality"
+            },
+            {
+              "field": "violations.observedEntity.name.keyword",
+              "id": "7",
+              "type": "cardinality"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && (details.context.keyword:parameters || details.context.keyword:headers || details.context.keyword:cookies) && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Entity Values",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Unique Count policy_name.keyword": true,
+              "Unique Count violations.observedEntity.name.keyword": true
+            },
+            "indexByName": {
+              "Count": 1,
+              "Unique Count policy_name.keyword": 2,
+              "Unique Count violations.observedEntity.name.keyword": 3,
+              "violations.observedEntity.value-decode.keyword": 0
+            },
+            "renameByName": {
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count details.parameter_data.name.keyword": "Parameters",
+              "Unique Count ip_client": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "Unique Count violations.observedEntity.name.keyword": "Entities",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Parameter Value",
+              "details.violation.viol_name.keyword": "Violations",
+              "ip_client": "IP address",
+              "sig_names.keyword": "Signatures",
+              "violations.keyword": "Violations",
+              "violations.observedEntity.value-decode.keyword": "Value",
+              "violations.observedEntity.value.keyword": "Value"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Location"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 158
+              },
+              {
+                "id": "noValue",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SignatureID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Context"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "super-light-red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "orange",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 231
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 77
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Length"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Violation Buffer"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SupportID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 208
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Details",
+                    "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Method"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 57
+      },
+      "id": 64,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "1000"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && (details.context.keyword:parameter || details.context.keyword:header || details.context.keyword:cookie) && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Parameter / Header / Cookie violation details",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "country_name",
+                "host",
+                "id",
+                "method",
+                "requestPolicy.fullPath",
+                "requestStatus",
+                "violations.context",
+                "violations.enforcementState.isBlocked",
+                "violations.enforcementState.isLikelyFalsePositive",
+                "violations.observedEntity.location",
+                "violations.observedEntity.name-decode",
+                "violations.observedEntity.value-decode",
+                "violations.policyEntity.headers",
+                "violations.policyEntity.parameters",
+                "signature-details.name",
+                "signature-details.sig_id",
+                "violations.snippet.buffer-decode",
+                "violations.snippet.length",
+                "violations.snippet.offset",
+                "virtualServerName",
+                "@timestamp"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": true,
+              "country": false
+            },
+            "indexByName": {
+              "@timestamp": 0,
+              "country_name": 17,
+              "host": 16,
+              "id": 4,
+              "method": 15,
+              "requestPolicy.fullPath": 13,
+              "requestStatus": 10,
+              "signature-details.name": 18,
+              "signature-details.sig_id": 3,
+              "violations.context": 8,
+              "violations.enforcementState.isBlocked": 12,
+              "violations.enforcementState.isLikelyFalsePositive": 11,
+              "violations.observedEntity.location": 9,
+              "violations.observedEntity.name-decode": 1,
+              "violations.observedEntity.value-decode": 2,
+              "violations.policyEntity.headers": 19,
+              "violations.policyEntity.parameters": 20,
+              "violations.snippet.buffer-decode": 5,
+              "violations.snippet.length": 7,
+              "violations.snippet.offset": 6,
+              "virtualServerName": 14
+            },
+            "renameByName": {
+              "@timestamp": "Timestamp",
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count ip_client": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "country_name": "Country",
+              "details.context.keyword": "Context",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Value",
+              "details.violation.viol_name.keyword": "Violations",
+              "host": "Device",
+              "id": "SupportID",
+              "id.keyword": "Support ID",
+              "ip_client": "IP address",
+              "method": "Method",
+              "requestPolicy.fullPath": "Policy",
+              "requestStatus": "Status",
+              "sig_names.keyword": "Signatures",
+              "signature-details.name": "Signature Name",
+              "signature-details.name.keyword": "Signature Name",
+              "signature-details.sig_id": "SignatureID",
+              "uri": "URL",
+              "violations.context": "Context",
+              "violations.enforcementState.isAlarmed": "isAlarmed",
+              "violations.enforcementState.isBlocked": "isBlocked",
+              "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
+              "violations.keyword": "Violations",
+              "violations.observedEntity.location": "Location",
+              "violations.observedEntity.location.keyword": "Location",
+              "violations.observedEntity.name-decode": "Name",
+              "violations.observedEntity.name-decode.keyword": "Name",
+              "violations.observedEntity.value-decode": "Value",
+              "violations.observedEntity.value-decode.keyword": "Value",
+              "violations.observedEntity.value.keyword": "",
+              "violations.policyEntity.headers": "",
+              "violations.snippet.buffer-decode": "Violation Buffer",
+              "violations.snippet.buffer-decode.keyword": "Violation Buffer",
+              "violations.snippet.length": "Length",
+              "violations.snippet.offset": "Offset",
+              "virtualServerName": "Virtual Server"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "elasticsearch",
         "uid": "d37e6695-eddf-4c26-aa7c-be5ac5c0358e"
@@ -3679,650 +3581,10 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 71
       },
       "id": 59,
-      "panels": [
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Hits"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 87
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "IPs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 69
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Sig IDs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 82
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 19,
-            "x": 0,
-            "y": 56
-          },
-          "id": 39,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "violations.snippet.buffer-decode.keyword",
-                  "id": "6",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "100"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                },
-                {
-                  "field": "clientIp",
-                  "id": "3",
-                  "type": "cardinality"
-                },
-                {
-                  "field": "violations.signature.signatureId",
-                  "id": "5",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.context.keyword:urls && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "URLs Violations",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "Count": 1,
-                  "Unique Count policy_name.keyword": 3,
-                  "Unique Count source_host": 4,
-                  "Unique Count uri.keyword": 2,
-                  "violations.snippet.buffer-decode.keyword": 0
-                },
-                "renameByName": {
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count clientIp": "IPs",
-                  "Unique Count clientIp.keyword": "IPs",
-                  "Unique Count details.parameter_data.name.keyword": "Parameters",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count requestPolicy.fullPath.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "Unique Count violations.signature.signatureId": "Sig IDs",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Parameter Value",
-                  "details.sig_data.kw_data.buffer.keyword": "Keyword Detected",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "ip_client": "IP address",
-                  "sig_names.keyword": "Signatures",
-                  "violations.keyword": "Violations",
-                  "violations.snippet.buffer-decode.keyword": "URLs"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": false,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Location"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 158
-                  },
-                  {
-                    "id": "noValue",
-                    "value": "-"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SignatureID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 122
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Context"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 120
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "super-light-red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 289
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "orange"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 231
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 77
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Length"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 70
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Violation Buffer"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 300
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SupportID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 208
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "links",
-                    "value": [
-                      {
-                        "targetBlank": true,
-                        "title": "Details",
-                        "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Status"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 100
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Method"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 92
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "isBlocked"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 90
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "isAlarmed"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 98
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "FalsePositive"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 118
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 13,
-            "w": 24,
-            "x": 0,
-            "y": 65
-          },
-          "id": 65,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "settings": {
-                    "limit": "1000"
-                  },
-                  "type": "logs"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.context.keyword:urls && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "URL violation logs",
-          "transformations": [
-            {
-              "id": "filterFieldsByName",
-              "options": {
-                "include": {
-                  "names": [
-                    "country_name",
-                    "host",
-                    "id",
-                    "method",
-                    "requestPolicy.fullPath",
-                    "requestStatus",
-                    "violations.context",
-                    "violations.enforcementState.isBlocked",
-                    "violations.enforcementState.isLikelyFalsePositive",
-                    "violations.observedEntity.name-decode",
-                    "violations.policyEntity.urls",
-                    "violations.signature.name",
-                    "violations.signature.signatureId",
-                    "violations.snippet.buffer-decode",
-                    "violations.snippet.length",
-                    "violations.snippet.offset",
-                    "virtualServerName",
-                    "@timestamp"
-                  ]
-                }
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Count": true,
-                  "country": false
-                },
-                "indexByName": {
-                  "@timestamp": 0,
-                  "country_name": 15,
-                  "host": 14,
-                  "id": 6,
-                  "method": 13,
-                  "requestPolicy.fullPath": 11,
-                  "requestStatus": 7,
-                  "violations.context": 1,
-                  "violations.enforcementState.isBlocked": 9,
-                  "violations.enforcementState.isLikelyFalsePositive": 8,
-                  "violations.observedEntity.name-decode": 10,
-                  "violations.policyEntity.urls": 17,
-                  "violations.signature.name": 16,
-                  "violations.signature.signatureId": 5,
-                  "violations.snippet.buffer-decode": 2,
-                  "violations.snippet.length": 4,
-                  "violations.snippet.offset": 3,
-                  "virtualServerName": 12
-                },
-                "renameByName": {
-                  "@timestamp": "Timestamp",
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "country_name": "Country",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Value",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "host": "Device",
-                  "id": "SupportID",
-                  "id.keyword": "Support ID",
-                  "ip_client": "IP address",
-                  "method": "Method",
-                  "requestPolicy.fullPath": "Policy",
-                  "requestStatus": "Status",
-                  "sig_names.keyword": "Signatures",
-                  "url-decode": "URL",
-                  "violations.context": "Context",
-                  "violations.context.keyword": "Context",
-                  "violations.enforcementState.isAlarmed": "isAlarmed",
-                  "violations.enforcementState.isBlocked": "isBlocked",
-                  "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
-                  "violations.keyword": "Violations",
-                  "violations.observedEntity.location": "Location",
-                  "violations.observedEntity.location.keyword": "Location",
-                  "violations.observedEntity.name-decode": "Name",
-                  "violations.observedEntity.name-decode.keyword": "Name",
-                  "violations.observedEntity.value-decode": "Value",
-                  "violations.observedEntity.value-decode.keyword": "Value",
-                  "violations.observedEntity.value.keyword": "",
-                  "violations.policyEntity.headers": "",
-                  "violations.signature.name": "Signature Name",
-                  "violations.signature.name.keyword": "Signature Name",
-                  "violations.signature.signatureId": "SignatureID",
-                  "violations.snippet.buffer-decode": "Violation Buffer",
-                  "violations.snippet.buffer-decode.keyword": "Violation Buffer",
-                  "violations.snippet.length": "Length",
-                  "violations.snippet.offset": "Offset",
-                  "virtualServerName": "Virtual Server"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "targets": [
         {
           "datasource": {
@@ -4336,692 +3598,1280 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hits"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 87
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IPs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 69
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "details.sig_data.kw_data.buffer_decoded.keyword"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Decoded URL"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 19,
+        "x": 0,
+        "y": 72
+      },
+      "id": 39,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "details.sig_data.kw_data.buffer_decoded.keyword",
+              "id": "6",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            },
+            {
+              "field": "ip_client",
+              "id": "3",
+              "type": "cardinality"
+            },
+            {
+              "field": "signature-details.sig_id",
+              "id": "5",
+              "type": "cardinality"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.context.keyword:url && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "URLs Violations",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "Unique Count policy_name.keyword": 3,
+              "Unique Count source_host": 4,
+              "Unique Count uri.keyword": 2,
+              "violations.snippet.buffer-decode.keyword": 0
+            },
+            "renameByName": {
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count details.parameter_data.name.keyword": "Parameters",
+              "Unique Count ip_client": "IPs",
+              "Unique Count ip_client.keyword": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count signature-details.sig_id": "Sig IDs",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Parameter Value",
+              "details.sig_data.kw_data.buffer.keyword": "Keyword Detected",
+              "details.violation.viol_name.keyword": "Violations",
+              "ip_client": "IP address",
+              "sig_names.keyword": "Signatures",
+              "violations.keyword": "Violations",
+              "violations.snippet.buffer-decode.keyword": "URLs"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Location"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 158
+              },
+              {
+                "id": "noValue",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SignatureID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Context"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "super-light-red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "orange",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 231
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 77
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Length"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Violation Buffer"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SupportID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 208
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Details",
+                    "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Method"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "isBlocked"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "isAlarmed"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 98
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FalsePositive"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 81
+      },
+      "id": 65,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "1000"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.context.keyword:url && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "URL violation logs",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "country_name",
+                "host",
+                "id",
+                "method",
+                "requestPolicy.fullPath",
+                "requestStatus",
+                "violations.context",
+                "violations.enforcementState.isBlocked",
+                "violations.enforcementState.isLikelyFalsePositive",
+                "violations.observedEntity.name-decode",
+                "violations.policyEntity.urls",
+                "signature-details.name",
+                "signature-details.sig_id",
+                "violations.snippet.buffer-decode",
+                "violations.snippet.length",
+                "violations.snippet.offset",
+                "virtualServerName",
+                "@timestamp"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": true,
+              "country": false
+            },
+            "indexByName": {
+              "@timestamp": 0,
+              "country_name": 15,
+              "host": 14,
+              "id": 6,
+              "method": 13,
+              "requestPolicy.fullPath": 11,
+              "requestStatus": 7,
+              "signature-details.name": 16,
+              "signature-details.sig_id": 5,
+              "violations.context": 1,
+              "violations.enforcementState.isBlocked": 9,
+              "violations.enforcementState.isLikelyFalsePositive": 8,
+              "violations.observedEntity.name-decode": 10,
+              "violations.policyEntity.urls": 17,
+              "violations.snippet.buffer-decode": 2,
+              "violations.snippet.length": 4,
+              "violations.snippet.offset": 3,
+              "virtualServerName": 12
+            },
+            "renameByName": {
+              "@timestamp": "Timestamp",
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count ip_client": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "country_name": "Country",
+              "details.context.keyword": "Context",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Value",
+              "details.violation.viol_name.keyword": "Violations",
+              "host": "Device",
+              "id": "SupportID",
+              "id.keyword": "Support ID",
+              "ip_client": "IP address",
+              "method": "Method",
+              "requestPolicy.fullPath": "Policy",
+              "requestStatus": "Status",
+              "sig_names.keyword": "Signatures",
+              "signature-details.name": "Signature Name",
+              "signature-details.name.keyword": "Signature Name",
+              "signature-details.sig_id": "SignatureID",
+              "uri": "URL",
+              "violations.context": "Context",
+              "violations.enforcementState.isAlarmed": "isAlarmed",
+              "violations.enforcementState.isBlocked": "isBlocked",
+              "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
+              "violations.keyword": "Violations",
+              "violations.observedEntity.location": "Location",
+              "violations.observedEntity.location.keyword": "Location",
+              "violations.observedEntity.name-decode": "Name",
+              "violations.observedEntity.name-decode.keyword": "Name",
+              "violations.observedEntity.value-decode": "Value",
+              "violations.observedEntity.value-decode.keyword": "Value",
+              "violations.observedEntity.value.keyword": "",
+              "violations.policyEntity.headers": "",
+              "violations.snippet.buffer-decode": "Violation Buffer",
+              "violations.snippet.buffer-decode.keyword": "Violation Buffer",
+              "violations.snippet.length": "Length",
+              "violations.snippet.offset": "Offset",
+              "virtualServerName": "Virtual Server"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 94
       },
       "id": 75,
-      "panels": [
-        {
-          "datasource": {
-            "type": "elasticsearch",
-            "uid": "waf_decoded"
+      "panels": [],
+      "title": "Request Context",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Hits"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 87
-                  }
-                ]
+                "color": "red",
+                "value": null
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "IPs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 69
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "URLs"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 71
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Policies"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 82
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Violation Buffer"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  }
-                ]
+                "color": "green",
+                "value": 90
               }
             ]
           },
-          "gridPos": {
-            "h": 12,
-            "w": 19,
-            "x": 0,
-            "y": 57
-          },
-          "id": 60,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [
-                {
-                  "field": "violations.snippet.buffer-decode.keyword",
-                  "id": "6",
-                  "settings": {
-                    "min_doc_count": "1",
-                    "order": "desc",
-                    "orderBy": "1",
-                    "size": "100"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
-              },
-              "metrics": [
-                {
-                  "id": "1",
-                  "type": "count"
-                },
-                {
-                  "field": "clientIp",
-                  "id": "3",
-                  "type": "cardinality"
-                },
-                {
-                  "field": "url-decode.keyword",
-                  "id": "4",
-                  "type": "cardinality"
-                },
-                {
-                  "field": "requestPolicy.fullPath.keyword",
-                  "id": "5",
-                  "type": "cardinality"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.context.keyword:request && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Request Violations",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "Count": 1,
-                  "Unique Count policy_name.keyword": 3,
-                  "Unique Count source_host": 4,
-                  "Unique Count uri.keyword": 2,
-                  "violations.snippet.buffer-decode.keyword": 0
-                },
-                "renameByName": {
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count clientIp": "IPs",
-                  "Unique Count details.parameter_data.name.keyword": "Parameters",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count requestPolicy.fullPath.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "Unique Count url-decode.keyword": "URLs",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Parameter Value",
-                  "details.sig_data.kw_data.buffer.keyword": "Keyword Detected",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "ip_client": "IP address",
-                  "sig_names.keyword": "Signatures",
-                  "violations.keyword": "Violations",
-                  "violations.snippet.buffer-decode.keyword": "Violation Buffer"
-                }
-              }
-            }
-          ],
-          "type": "table"
+          "unit": "short"
         },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hits"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 87
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "IPs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 69
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "URLs"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 71
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Policies"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 82
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "details.sig_data.kw_data.buffer_decoded.keyword"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Decoded URL"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 19,
+        "x": 0,
+        "y": 95
+      },
+      "id": 60,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
         {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "details.sig_data.kw_data.buffer_decoded.keyword",
+              "id": "6",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "1",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
           "datasource": {
             "type": "elasticsearch",
             "uid": "waf_decoded"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": false,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 90
-                  }
-                ]
-              },
-              "unit": "short"
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
             },
-            "overrides": [
+            {
+              "field": "ip_client",
+              "id": "3",
+              "type": "cardinality"
+            },
+            {
+              "field": "uri.keyword",
+              "id": "4",
+              "type": "cardinality"
+            },
+            {
+              "field": "policy_name.keyword",
+              "id": "5",
+              "type": "cardinality"
+            }
+          ],
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.context.keyword:request && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Request Violations",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "Unique Count policy_name.keyword": 3,
+              "Unique Count source_host": 4,
+              "Unique Count uri.keyword": 2,
+              "violations.snippet.buffer-decode.keyword": 0
+            },
+            "renameByName": {
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count details.parameter_data.name.keyword": "Parameters",
+              "Unique Count ip_client": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Parameter Value",
+              "details.sig_data.kw_data.buffer.keyword": "Keyword Detected",
+              "details.violation.viol_name.keyword": "Violations",
+              "ip_client": "IP address",
+              "sig_names.keyword": "Signatures",
+              "violations.keyword": "Violations",
+              "violations.snippet.buffer-decode.keyword": "Violation Buffer"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "waf_decoded"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Location"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 158
-                  },
-                  {
-                    "id": "noValue",
-                    "value": "-"
-                  }
-                ]
+                "color": "red",
+                "value": null
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SignatureID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 122
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Context"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 120
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Value"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "super-light-red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 289
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "orange"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 231
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Offset"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 77
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Length"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 70
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Violation Buffer"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "basic",
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "red"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.inspect",
-                    "value": true
-                  },
-                  {
-                    "id": "custom.width",
-                    "value": 300
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SupportID"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 208
-                  },
-                  {
-                    "id": "unit",
-                    "value": "string"
-                  },
-                  {
-                    "id": "links",
-                    "value": [
-                      {
-                        "targetBlank": true,
-                        "title": "Details",
-                        "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Status"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 100
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Method"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 92
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "isBlocked"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 90
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "isAlarmed"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 98
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "FalsePositive"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 118
-                  }
-                ]
+                "color": "green",
+                "value": 90
               }
             ]
           },
-          "gridPos": {
-            "h": 13,
-            "w": 24,
-            "x": 0,
-            "y": 69
-          },
-          "id": 76,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": true,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Location"
             },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "9.5.3",
-          "targets": [
-            {
-              "alias": "",
-              "bucketAggs": [],
-              "datasource": {
-                "type": "elasticsearch",
-                "uid": "waf_decoded"
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 158
               },
-              "metrics": [
-                {
-                  "id": "1",
-                  "settings": {
-                    "limit": "1000"
-                  },
-                  "type": "logs"
-                }
-              ],
-              "query": "violations.context.keyword:$context && virtualServerName.keyword:$vsname && requestPolicy.fullPath.keyword:$policy && host.keyword:$device && violations.signature.risk.keyword:$risk && violations.signature.accuracy.keyword:$accuracy && violations.context.keyword:request && violations.violation.name.keyword:VIOL_ATTACK_SIGNATURE",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Request violation logs",
-          "transformations": [
-            {
-              "id": "filterFieldsByName",
-              "options": {
-                "include": {
-                  "names": [
-                    "country_name",
-                    "host",
-                    "id",
-                    "method",
-                    "requestPolicy.fullPath",
-                    "requestStatus",
-                    "violations.context",
-                    "violations.enforcementState.isBlocked",
-                    "violations.enforcementState.isLikelyFalsePositive",
-                    "violations.observedEntity.name-decode",
-                    "violations.policyEntity.urls",
-                    "violations.signature.name",
-                    "violations.signature.signatureId",
-                    "violations.snippet.buffer-decode",
-                    "violations.snippet.length",
-                    "violations.snippet.offset",
-                    "virtualServerName",
-                    "@timestamp"
+              {
+                "id": "noValue",
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SignatureID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
                   ]
                 }
               }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Context"
             },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Count": true,
-                  "country": false
-                },
-                "indexByName": {
-                  "@timestamp": 0,
-                  "country_name": 15,
-                  "host": 14,
-                  "id": 6,
-                  "method": 13,
-                  "requestPolicy.fullPath": 11,
-                  "requestStatus": 7,
-                  "violations.context": 1,
-                  "violations.enforcementState.isBlocked": 9,
-                  "violations.enforcementState.isLikelyFalsePositive": 8,
-                  "violations.observedEntity.name-decode": 10,
-                  "violations.policyEntity.urls": 17,
-                  "violations.signature.name": 16,
-                  "violations.signature.signatureId": 5,
-                  "violations.snippet.buffer-decode": 2,
-                  "violations.snippet.length": 4,
-                  "violations.snippet.offset": 3,
-                  "virtualServerName": 12
-                },
-                "renameByName": {
-                  "@timestamp": "Timestamp",
-                  "Count": "Hits",
-                  "Count 1": "Hits",
-                  "Count 2": "Blocked",
-                  "Unique Count": "IPs",
-                  "Unique Count ip_client": "IPs",
-                  "Unique Count policy_name.keyword": "Policies",
-                  "Unique Count source_host": "IPs",
-                  "Unique Count uri.keyword": "URLs",
-                  "country_name": "Country",
-                  "details.parameter_data.name.keyword": "Parameter Name",
-                  "details.parameter_data.value.keyword": "Value",
-                  "details.violation.viol_name.keyword": "Violations",
-                  "host": "Device",
-                  "id": "SupportID",
-                  "id.keyword": "Support ID",
-                  "ip_client": "IP address",
-                  "method": "Method",
-                  "requestPolicy.fullPath": "Policy",
-                  "requestStatus": "Status",
-                  "sig_names.keyword": "Signatures",
-                  "url-decode": "URL",
-                  "violations.context": "Context",
-                  "violations.context.keyword": "Context",
-                  "violations.enforcementState.isAlarmed": "isAlarmed",
-                  "violations.enforcementState.isBlocked": "isBlocked",
-                  "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
-                  "violations.keyword": "Violations",
-                  "violations.observedEntity.location": "Location",
-                  "violations.observedEntity.location.keyword": "Location",
-                  "violations.observedEntity.name-decode": "Name",
-                  "violations.observedEntity.name-decode.keyword": "Name",
-                  "violations.observedEntity.value-decode": "Value",
-                  "violations.observedEntity.value-decode.keyword": "Value",
-                  "violations.observedEntity.value.keyword": "",
-                  "violations.policyEntity.headers": "",
-                  "violations.signature.name": "Signature Name",
-                  "violations.signature.name.keyword": "Signature Name",
-                  "violations.signature.signatureId": "SignatureID",
-                  "violations.snippet.buffer-decode": "Violation Buffer",
-                  "violations.snippet.buffer-decode.keyword": "Violation Buffer",
-                  "violations.snippet.length": "Length",
-                  "violations.snippet.offset": "Offset",
-                  "virtualServerName": "Virtual Server"
-                }
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
               }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "super-light-red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 289
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "orange",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 231
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Offset"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 77
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Length"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Violation Buffer"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.inspect",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SupportID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 208
+              },
+              {
+                "id": "unit",
+                "value": "string"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Details",
+                    "url": "d/nap-supportid/nginx-nap-supportid?orgId=1&var-SupportID=${__value.raw}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Method"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "isBlocked"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "isAlarmed"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 98
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FalsePositive"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 107
+      },
+      "id": 76,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "waf_decoded"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "1000"
+              },
+              "type": "logs"
             }
           ],
-          "type": "table"
+          "query": "details.context.keyword:$context && vs_name.keyword:$vsname && policy_name.keyword:$policy && unit_hostname.keyword:$device && signature-details.risk.keyword:$risk && signature-details.accuracy.keyword:$accuracy && details.context.keyword:request && details.viol_name.keyword:VIOL_ATTACK_SIGNATURE",
+          "refId": "A",
+          "timeField": "@timestamp"
         }
       ],
-      "title": "Request Context",
-      "type": "row"
+      "title": "Request violation logs",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "country_name",
+                "host",
+                "id",
+                "method",
+                "requestPolicy.fullPath",
+                "requestStatus",
+                "violations.context",
+                "violations.enforcementState.isBlocked",
+                "violations.enforcementState.isLikelyFalsePositive",
+                "violations.observedEntity.name-decode",
+                "violations.policyEntity.urls",
+                "signature-details.name",
+                "signature-details.sig_id",
+                "violations.snippet.buffer-decode",
+                "violations.snippet.length",
+                "violations.snippet.offset",
+                "virtualServerName",
+                "@timestamp"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Count": true,
+              "country": false
+            },
+            "indexByName": {
+              "@timestamp": 0,
+              "country_name": 15,
+              "host": 14,
+              "id": 6,
+              "method": 13,
+              "requestPolicy.fullPath": 11,
+              "requestStatus": 7,
+              "signature-details.name": 16,
+              "signature-details.sig_id": 5,
+              "violations.context": 1,
+              "violations.enforcementState.isBlocked": 9,
+              "violations.enforcementState.isLikelyFalsePositive": 8,
+              "violations.observedEntity.name-decode": 10,
+              "violations.policyEntity.urls": 17,
+              "violations.snippet.buffer-decode": 2,
+              "violations.snippet.length": 4,
+              "violations.snippet.offset": 3,
+              "virtualServerName": 12
+            },
+            "renameByName": {
+              "@timestamp": "Timestamp",
+              "Count": "Hits",
+              "Count 1": "Hits",
+              "Count 2": "Blocked",
+              "Unique Count": "IPs",
+              "Unique Count ip_client": "IPs",
+              "Unique Count policy_name.keyword": "Policies",
+              "Unique Count source_host": "IPs",
+              "Unique Count uri.keyword": "URLs",
+              "country_name": "Country",
+              "details.context.keyword": "Context",
+              "details.parameter_data.name.keyword": "Parameter Name",
+              "details.parameter_data.value.keyword": "Value",
+              "details.violation.viol_name.keyword": "Violations",
+              "host": "Device",
+              "id": "SupportID",
+              "id.keyword": "Support ID",
+              "ip_client": "IP address",
+              "method": "Method",
+              "requestPolicy.fullPath": "Policy",
+              "requestStatus": "Status",
+              "sig_names.keyword": "Signatures",
+              "signature-details.name": "Signature Name",
+              "signature-details.name.keyword": "Signature Name",
+              "signature-details.sig_id": "SignatureID",
+              "uri": "URL",
+              "violations.context": "Context",
+              "violations.enforcementState.isAlarmed": "isAlarmed",
+              "violations.enforcementState.isBlocked": "isBlocked",
+              "violations.enforcementState.isLikelyFalsePositive": "FalsePositive",
+              "violations.keyword": "Violations",
+              "violations.observedEntity.location": "Location",
+              "violations.observedEntity.location.keyword": "Location",
+              "violations.observedEntity.name-decode": "Name",
+              "violations.observedEntity.name-decode.keyword": "Name",
+              "violations.observedEntity.value-decode": "Value",
+              "violations.observedEntity.value-decode.keyword": "Value",
+              "violations.observedEntity.value.keyword": "",
+              "violations.policyEntity.headers": "",
+              "violations.snippet.buffer-decode": "Violation Buffer",
+              "violations.snippet.buffer-decode.keyword": "Violation Buffer",
+              "violations.snippet.length": "Length",
+              "violations.snippet.offset": "Offset",
+              "virtualServerName": "Virtual Server"
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "nginx",
@@ -5030,19 +4880,27 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"violations.context.keyword\", \"size\": 10}",
+        "definition": "{\"find\": \"terms\", \"field\": \"details.context.keyword\", \"size\": 10}",
         "hide": 0,
         "includeAll": true,
         "label": "Context",
         "multi": true,
         "name": "context",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"violations.context.keyword\", \"size\": 10}",
+        "query": "{\"find\": \"terms\", \"field\": \"details.context.keyword\", \"size\": 10}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5050,19 +4908,23 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"virtualServerName.keyword\", \"size\": 1000}",
+        "definition": "{\"find\": \"terms\", \"field\": \"vs_name.keyword\", \"size\": 1000}",
         "hide": 0,
         "includeAll": true,
-        "label": "virtualServerName",
+        "label": "VS Name",
         "multi": true,
         "name": "vsname",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"virtualServerName.keyword\", \"size\": 1000}",
+        "query": "{\"find\": \"terms\", \"field\": \"vs_name.keyword\", \"size\": 1000}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5070,19 +4932,23 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"requestPolicy.fullPath.keyword\", \"size\": 500}",
+        "definition": "{\"find\": \"terms\", \"field\": \"policy_name.keyword\", \"size\": 500}",
         "hide": 0,
         "includeAll": true,
         "label": "Policy",
         "multi": true,
         "name": "policy",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"requestPolicy.fullPath.keyword\", \"size\": 500}",
+        "query": "{\"find\": \"terms\", \"field\": \"policy_name.keyword\", \"size\": 500}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5090,19 +4956,23 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"host.keyword\", \"size\": 1000}",
+        "definition": "{\"find\": \"terms\", \"field\": \"unit_hostname.keyword\", \"size\": 1000}",
         "hide": 0,
         "includeAll": true,
         "label": "Device",
         "multi": true,
         "name": "device",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"host.keyword\", \"size\": 1000}",
+        "query": "{\"find\": \"terms\", \"field\": \"unit_hostname.keyword\", \"size\": 1000}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5110,19 +4980,23 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"violations.signature.accuracy.keyword\", \"size\": 5}",
+        "definition": "{\"find\": \"terms\", \"field\": \"signature-details.accuracy.keyword\", \"size\": 5}",
         "hide": 0,
         "includeAll": true,
         "label": "Accuracy",
         "multi": true,
         "name": "accuracy",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"violations.signature.accuracy.keyword\", \"size\": 5}",
+        "query": "{\"find\": \"terms\", \"field\": \"signature-details.accuracy.keyword\", \"size\": 5}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5130,19 +5004,23 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
           "uid": "waf_decoded"
         },
-        "definition": "{\"find\": \"terms\", \"field\": \"violations.signature.risk.keyword\", \"size\": 5}",
+        "definition": "{\"find\": \"terms\", \"field\": \"signature-details.risk.keyword\", \"size\": 5}",
         "hide": 0,
         "includeAll": true,
         "label": "Risk",
         "multi": true,
         "name": "risk",
         "options": [],
-        "query": "{\"find\": \"terms\", \"field\": \"violations.signature.risk.keyword\", \"size\": 5}",
+        "query": "{\"find\": \"terms\", \"field\": \"signature-details.risk.keyword\", \"size\": 5}",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -5170,6 +5048,6 @@
   "timezone": "",
   "title": "NAP - Attack Signatures",
   "uid": "nap-signatures",
-  "version": 22,
+  "version": 27,
   "weekStart": ""
 }

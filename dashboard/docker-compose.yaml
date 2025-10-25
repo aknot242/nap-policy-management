@@ -10,6 +10,7 @@ services:
       - "ES_JAVA_OPTS=-Xms3g -Xmx3g"
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
+    restart: unless-stopped
   logstash:
     image: docker.elastic.co/logstash/logstash:7.17.9
     volumes:
@@ -19,6 +20,7 @@ services:
     environment:
       - TZ
       - "LS_JAVA_OPTS=-Xms1g -Xmx1g"
+    restart: unless-stopped
   grafana:
     image: grafana/grafana-oss:9.2.1
     ports:
@@ -28,6 +30,7 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
 volumes:
   grafana-storage: {}
   elasticsearch-storage: {}

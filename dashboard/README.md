@@ -93,19 +93,6 @@ curl -d "@elastic/sig-lookup.json" -H 'Content-Type: application/json' -X PUT 'h
 
 Expected Response: `{"acknowledged":true}`
 
-## Configure Grafana
-
-1. Configure Grafana Dashboards.
-
-The Grafana data sources and dashboards have already been imported. However, you will need to update the 4 dashboards to use the datasources using mapping from this table:
-
-| Dashboard Name                        |  Grafana Data Source   |
-| ------------------------------------- | ---------------------- |
-| NGINX NAP Main Dashboard              | WAF-Logs               |
-| NGINX NAP Support-ID Dashboard        | WAF-Logs, WAF-Decoded  |
-| NGINX NAP Attack Signatures Dashboard | WAF-Decoded            |
-| NGINX NAP BOT Dashboard               | WAF-Logs               |
-
 ## Configure Logging profile for NAP
 
 For NAP working on a Docker or on a VM implementation, please configure the following logging format:
