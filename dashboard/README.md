@@ -61,6 +61,16 @@ python3 signatures/upload-signatures.py signatures/signatures-report.json localh
 
 If successful it will take around 1 min to push all signatures to elastic. Expect to see multiple responses of the following: `{"_index":"signatures","_type":"_doc","_id":"200000001","_version":1,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":7553,"_primary_term":1}`
 
+1. Create the Index Lifecycle Management (ILM) policy. This policy automatically deletes `waf-*` indices after **60 days** to prevent Elasticsearch disk usage from growing unbounded.
+
+```shell
+curl -d "@elastic/ilm-policy.json" -H 'Content-Type: application/json' -X PUT 'http://localhost:9200/_ilm/policy/waf-ilm-policy'
+```
+
+Expected Response: `{"acknowledged":true}`
+
+> **Note:** The 60-day retention period is defined in [`elastic/ilm-policy.json`](elastic/ilm-policy.json) under `phases.delete.min_age`. Adjust this value to match your retention requirements (e.g. `"30d"`, `"90d"`), or remove the ILM policy step and the `settings.index.lifecycle.name` block from [`elastic/template-mapping.json`](elastic/template-mapping.json) entirely if you do not want automatic index deletion.
+
 1. Create template for NAP indexes Index Mapping
 
 ```shell
